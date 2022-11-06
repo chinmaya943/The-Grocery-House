@@ -88,15 +88,16 @@ WSGI_APPLICATION = 'shoppinglyx.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#          'ENGINE': 'django.db.backends.sqlite3',
-#          'NAME': BASE_DIR / 'db.sqlite3', 
-#     }
-# }
-
-    
-DATABASES = {'default': dj_database_url.config()}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd3fdi10gggq8l1',
+        'USER': 'tgnvtrpufhpjdi',
+        'PASSWORD': 'e0577da0070fc69645a8e2e685f2c34941c79c30b2e1749e8f9bba5d10fdab27',
+        'HOST': 'ec2-35-170-21-76.compute-1.amazonaws.com',
+        'PORT': '5432', 
+    }
+}
 
 
 # Password validation
