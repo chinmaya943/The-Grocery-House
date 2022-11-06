@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 # import django_heroku
-# import dj_database_url
+import dj_database_url
 # from decouple import config
 
 
@@ -88,12 +88,15 @@ WSGI_APPLICATION = 'shoppinglyx.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-         'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': BASE_DIR / 'db.sqlite3', 
-    }
-}
+# DATABASES = {
+#     'default': {
+#          'ENGINE': 'django.db.backends.sqlite3',
+#          'NAME': BASE_DIR / 'db.sqlite3', 
+#     }
+# }
+
+    
+DATABASES = {'default': dj_database_url.config()}
 
 
 # Password validation
