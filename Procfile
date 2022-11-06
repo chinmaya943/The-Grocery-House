@@ -1,1 +1,1 @@
-web: gunicorn shoppinglyx.wsgi:application --log-file - --log-level debug
+web: gunicorn shoppinglyx.wsgi:application
