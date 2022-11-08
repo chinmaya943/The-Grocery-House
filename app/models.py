@@ -134,13 +134,16 @@ class Product(models.Model):
     purchase_price = models.FloatField()
     selling_price = models.FloatField()
     discounted_price = models.FloatField()
+    purchase_tax_type = models.CharField(max_length=30)
     purchase_tax = models.FloatField()
     selling_tax = models.FloatField()
     description = models.TextField()
     brand = models.CharField(max_length=100)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=50, default='Select')
     product_purchase_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
+    manufacture_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
     expiry_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
+    alertment_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
     product_image = models.ImageField(upload_to='productimg')
 
 

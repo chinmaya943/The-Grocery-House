@@ -93,7 +93,8 @@ class ProductModelAdmin(admin.ModelAdmin):
     'title', 
     'barcode', 
     'item_size', 
-    'item_color', 
+    'item_color',
+    'purchase_tax_type',  
     'purchase_price', 
     'purchase_tax', 
     'selling_price', 
@@ -103,8 +104,10 @@ class ProductModelAdmin(admin.ModelAdmin):
     'brand', 
     'category', 
     'actual_mrp', 
-    'product_purchase_date', 
-    'expiry_date', 
+    'product_purchase_date',
+    'manufacture_date',  
+    'expiry_date',
+    'alertment_date',  
     'product_image'
     ]
 

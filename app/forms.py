@@ -88,14 +88,17 @@ class ProductForm(ModelForm):
         'actual_mrp', 
         'purchase_price', 
         'selling_price', 
-        'discounted_price', 
+        'discounted_price',
+        'alertment_date',  
         'purchase_tax', 
         'selling_tax', 
         'description', 
         'brand', 
         'category', 
-        'product_purchase_date', 
+        'product_purchase_date',
+        'manufacture_date',  
         'expiry_date', 
+        'alertment_date', 
         'product_image'
         ]
         widgets = {
@@ -111,13 +114,16 @@ class ProductForm(ModelForm):
             'actual_mrp' :forms.NumberInput(attrs={'class':'form-control'}), 
             'selling_price' :forms.NumberInput(attrs={'class':'form-control'}),
             'discounted_price' :forms.NumberInput(attrs={'class':'form-control'}),  
+            'purchase_tax_type' :forms.TextInput(attrs={'class':'form-control'}), 
             'purchase_tax' :forms.NumberInput(attrs={'class':'form-control'}), 
             'selling_tax' :forms.NumberInput(attrs={'class':'form-control'}), 
             'description' :forms.TextInput(attrs={'class':'form-control'}), 
             'brand' :forms.TextInput(attrs={'class':'form-control'}), 
             'category' :forms.Select(attrs={'class':'form-control'}), 
             'product_purchase_date' :forms.DateInput(attrs={'class':'form-control'}), 
+            'manufacture_date' :forms.DateInput(attrs={'class':'form-control'}), 
             'expiry_date' :forms.DateInput(attrs={'class':'form-control'}), 
+            'alertment_date' :forms.DateInput(attrs={'class':'form-control'}), 
             'product_image' :forms.ClearableFileInput(attrs={'class':'form-control'}), 
         }
 
