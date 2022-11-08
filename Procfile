@@ -1,1 +1,1 @@
-web: gunicorn thegroceryhouse.wsgi
+web: gunicorn shoppinglyx.wsgi

@@ -99,7 +99,7 @@ DATABASES = {
         'NAME': 'thegroceryhouse', 
         'USER': 'postgres', 
         'PASSWORD': 'GNS@000999', 
-        'HOST': 'thegroceryhouse.herokuapp.com',
+        'HOST': 'localhost',
         'PORT': '5432',  
 
     }
