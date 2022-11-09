@@ -50,21 +50,6 @@ STAFF_CATEGORY_CHOICES = (
     (ACCOUNTANT, 'Accountant')
 )
 
-CATEGORY_CHOICES = (
-    ('Select', 'Select'), 
-    ('Kitchen Steelproduct', 'Kitchen Steelproduct'), 
-    ('Grocery', 'Grocery'), 
-    ('Vegitables', 'Vegitables'), 
-    ('Fresh Fruits', 'Fresh Fruits'), 
-    ('Snacks', 'Snacks'), 
-    ('Cold Drinks', 'Cold Drinks'), 
-    ('Dryfruits & Nuts', 'Dryfruits & Nuts'), 
-    ('Hot Drinks', 'Hot Drinks'), 
-    ('Protins', 'Protins'), 
-    ('Beauty Products', 'Beauty Products'),
-    ('Other Home Products', 'Other Home Products'),
-)
-
 STATUS_CHOICES = (
     ('Accepted', 'Accepted'), 
     ('Packed', 'Packed'), 
@@ -121,8 +106,24 @@ class Customer(models.Model):
     def __str__(self):
         return str(self.id)
 
+class Itemgroup(models.Model):
+    item_group_code = models.IntegerField()
+    item_group_name = models.CharField(max_length=50)
+    item_group_description = models.CharField(max_length=200)
+
+    def __str__(self) -> str:
+        return self.item_group_name
+
+class Category(models.Model):
+    item_group_name = models.ForeignKey(Itemgroup, on_delete=models.CASCADE, null=True)
+    category_code = models.IntegerField()
+    category_name = models.CharField(max_length=50)
+
+    def __str__(self) -> str:
+        return self.category_name
+
 class Product(models.Model):
-    group = models.CharField(max_length=50)
+    group = models.ForeignKey(Itemgroup, on_delete=models.CASCADE, null=True)
     item_type = models.TextField()
     manufacturer = models.TextField()
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
@@ -139,7 +140,7 @@ class Product(models.Model):
     selling_tax = models.FloatField()
     description = models.TextField()
     brand = models.CharField(max_length=100)
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=50, default='Select')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     product_purchase_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
     manufacture_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
     expiry_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
@@ -192,6 +193,18 @@ class OrderPlaced(models.Model):
         return self.quantity * self.product.discounted_price
 
 class Tax(models.Model):
-    tax_type = models.CharField(max_length=5, unique=True)
+    tax_type = models.CharField(max_length=10, unique=True)
     value = models.FloatField()
 
+class Purchase(models.Model):
+    trans_date = models.DateField(auto_now_add=False, auto_now=False, blank=True)
+    pur_bill_no = models.CharField(max_length=50)
+    supplier_name = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
+    total_qty = models.IntegerField()
+    gross_amt = models.FloatField()
+    disc_amt = models.FloatField()
+    gst_amt = models.FloatField()
+    tcs = models.FloatField()
+    o_charge = models.FloatField()
+    o_disc = models.FloatField()
+    grand_total = models.FloatField()

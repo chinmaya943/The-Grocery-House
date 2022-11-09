@@ -11,7 +11,10 @@ from .models import (
     User,
     Image,
     Coupon,
-    Tax,
+    Tax, 
+    Itemgroup,
+    Category,
+    Purchase,   
 
 )
 from django.contrib.auth.admin import UserAdmin
@@ -158,5 +161,36 @@ class TaxModelAdmin(admin.ModelAdmin):
     'value'
     ]
 
+@admin.register(Itemgroup)
+class ItemgroupModelAdmin(admin.ModelAdmin):
+    list_display = ['id', 
+    'item_group_code', 
+    'item_group_name', 
+    'item_group_description'
+    ]
+
+@admin.register(Category)
+class CategoryModelAdmin(admin.ModelAdmin):
+    list_display = ['id', 
+    'item_group_name', 
+    'category_code', 
+    'category_name'
+    ]
+
+@admin.register(Purchase)
+class PurchaseModelAdmin(admin.ModelAdmin):
+    list_display = ['id', 
+    'trans_date', 
+    'pur_bill_no', 
+    'supplier_name', 
+    'total_qty', 
+    'gross_amt', 
+    'disc_amt', 
+    'gst_amt', 
+    'tcs', 
+    'o_charge', 
+    'o_disc', 
+    'grand_total'
+    ]
 
 

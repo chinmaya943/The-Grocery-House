@@ -9,8 +9,8 @@ from django.shortcuts import redirect, render,HttpResponsePermanentRedirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.views import View
-from .models import CASHIER, MANAGER,ACCOUNTANT,  STAFF_CATEGORY_CHOICES, Color, Coupon, Customer, Product, Cart, OrderPlaced, Coupon, Size, Supplier, Tax
-from .forms import CartForm, ColorForm, SizeForm, SupplierForm, CouponForm, CustomerRegistrationForm, CustomerProfileForm, OrderPlacedForm, ProductForm, CustomerForm, TaxForm    
+from .models import CASHIER, MANAGER,ACCOUNTANT,  STAFF_CATEGORY_CHOICES, Color, Coupon, Customer, Product, Cart, OrderPlaced, Coupon, Size, Supplier, Tax, Itemgroup, Category, Purchase
+from .forms import CartForm, ColorForm, SizeForm, SupplierForm, CouponForm, CustomerRegistrationForm, CustomerProfileForm, OrderPlacedForm, ProductForm, CustomerForm, TaxForm, ItemgroupForm, CategoryForm, PurchaseForm   
 from django.db.models import Q
 from django.http import JsonResponse
 # For Function based login view
@@ -267,6 +267,21 @@ def all_size(request):
     size_list = Size.objects.all()
     return render(request, 'admin_app/size.html', {'size_list':size_list})
 
+# Group list(admin)
+def all_group(request):
+    group_list = Itemgroup.objects.all()
+    return render(request, 'admin_app/group.html', {'group_list':group_list})
+
+# Category list(admin)
+def all_category(request):
+    category_list = Category.objects.all()
+    return render(request, 'admin_app/category.html', {'category_list':category_list})
+
+# Purchase List(admin)
+def all_purchase(request):
+    purchase_list = Purchase.objects.all()
+    return render(request, 'admin_app/purchase.html', {'Purchase_list':purchase_list})
+
 # Supplier list(admin)
 def all_supplier(request):
     supplier_list = Supplier.objects.all()
@@ -368,6 +383,55 @@ def order_placed(request):
             submitted = True
     return render(request, 'admin_app/opinsert.html', {'form':form, 'submitted':submitted})
 
+# Group insert
+def group_insert(request):
+    submitted = False
+    if request.method == "POST":
+        forms = ItemgroupForm(request.POST)
+        if forms.is_valid():
+            forms.save()
+            # messages.success(request, 'Your changed are saved Successfully......!!!')
+            return redirect(group_insert)
+    else:
+        forms = ItemgroupForm
+        if 'submitted' in request.GET:
+            submitted = True
+    # messages.success(request, 'Your changed are saved Successfully......!!!')
+    return render(request, 'admin_app/group_insert.html', {'forms':forms, 'submitted':submitted})
+
+# Category insert
+def category_insert(request):
+    submitted = False
+    if request.method == "POST":
+        forms = CategoryForm(request.POST)
+        if forms.is_valid():
+            forms.save()
+            # messages.success(request, 'Your changed are saved Successfully......!!!')
+            return redirect(category_insert)
+    else:
+        forms = CategoryForm
+        if 'submitted' in request.GET:
+            submitted = True
+    # messages.success(request, 'Your changed are saved Successfully......!!!')
+    return render(request, 'admin_app/category_insert.html', {'forms':forms, 'submitted':submitted})
+
+
+# Category insert
+def purchase_insert(request):
+    submitted = False
+    if request.method == "POST":
+        forms = PurchaseForm(request.POST)
+        if forms.is_valid():
+            forms.save()
+            # messages.success(request, 'Your changed are saved Successfully......!!!')
+            return redirect(purchase_insert)
+    else:
+        forms = PurchaseForm
+        if 'submitted' in request.GET:
+            submitted = True
+    # messages.success(request, 'Your changed are saved Successfully......!!!')
+    return render(request, 'admin_app/purchase_insert.html', {'forms':forms, 'submitted':submitted})
+
 
 
 # # User Update(Admin)
@@ -383,9 +447,9 @@ def coupon_insert(request):
         form = CouponForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/coupon_insert?submitted=True')
+            return redirect(coupon_insert)
     else:
-        form = CouponForm()
+        form = CouponForm
         if 'submitted' in request.GET:
             submitted = True 
     return render(request, 'admin_app/coupon_insert.html', {'form':form, 'submitted':submitted})
@@ -393,13 +457,13 @@ def coupon_insert(request):
 # Tax insert
 def tax_insert(request):
     submitted = False
-    if request.method == 'POST':
+    if request.method == "POST":
         form = TaxForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/tax_insert?submitted=True')
+            return redirect(tax_insert)
     else:
-        form = TaxForm()
+        form = TaxForm
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'admin_app/tax_insert.html', {'form':form, 'submitted':submitted})
@@ -407,16 +471,18 @@ def tax_insert(request):
 # color insert
 def color_insert(request):
     submitted = False
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ColorForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/color_insert?submitted=True')
+            # messages.success(request, 'Your changed are saved Successfully......!!!')
+            return redirect(color_insert)
     else:
-        form = ColorForm()
+        form = ColorForm
         if 'submitted' in request.GET:
             submitted = True
-            return render(request, 'admin_app/color_insert.html', {'form':form, 'submitted':submitted}) 
+    # messages.success(request, 'Your changed are saved Successfully......!!!')
+    return render(request, 'admin_app/color_insert.html', {'form':form, 'submitted':submitted}) 
 
 # color delete
 def color_delete(request, id):
@@ -429,30 +495,30 @@ def color_delete(request, id):
 # Supplier insert
 def supplier_insert(request):
     submitted = False
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SupplierForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect(supplier_insert)
     else:
-        form = SupplierForm()
+        form = SupplierForm
         if 'submitted' in request.GET:
             submitted = True
-            return render(request, 'admin_app/supplier_insert.html', {'form':form, 'submitted':submitted})
+    return render(request, 'admin_app/supplier_insert.html', {'form':form, 'submitted':submitted})
 
     # Size Insert
-def sizevalue_insert(request):
+def size_insert(request):
     submitted = False
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SizeForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('admin_app/size-insert?submitted=True')
+            return redirect(size_insert)
     else:
-        form = SizeForm()
+        form = SizeForm
         if 'submitted' in request.GET:
             submitted = True
-            return render(request, 'admin_app/size_insert.html', {'form':form, 'submitted':submitted})
+    return render(request, 'admin_app/size_insert.html', {'form':form, 'submitted':submitted})
 
 
 

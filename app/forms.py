@@ -8,14 +8,14 @@ from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth import password_validation
 from django.forms import ModelForm, TextInput
 
-from .models import Customer, Tax, User, Product, Image, Cart, OrderPlaced, Coupon, Color, Size, Supplier
+from .models import Customer, Tax, User, Product, Image, Cart, OrderPlaced, Coupon, Color, Size, Supplier, Itemgroup, Category, Purchase
 
 
 class CustomerRegistrationForm(UserCreationForm):
-    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class':'form-control'}))
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
-    password2 = forms.CharField(label='Confirm Password (again)', widget=forms.PasswordInput(attrs={'class':'form-control'}))
-    email = forms.CharField(required=True, widget=forms.EmailInput(attrs={'class':'form-control'}))
+    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Pleade Enter the Username'}))
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Password'}))
+    password2 = forms.CharField(label='Confirm Password (again)', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Password Again'}))
+    email = forms.CharField(required=True, widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Email'}))
     class Meta:
         model = User
         fields = ['username', 
@@ -24,39 +24,39 @@ class CustomerRegistrationForm(UserCreationForm):
         'password2'
         ]
         labels = {'email':'Email'}
-        Widgets = {'username':forms.TextInput(attrs={'class':'form-control'})}
+        Widgets = {'username':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Username'})}
 
 class LoginForm(AuthenticationForm):
-    username = UsernameField(widget=forms.TextInput(attrs={'autofocus':True, 'class':'form-control'}))
+    username = UsernameField(widget=forms.TextInput(attrs={'autofocus':True, 'class':'form-control', 'placeholder':'Please Enter the Username'}))
     password = forms.CharField(label=_("Password"),strip=False,widget=forms.PasswordInput(attrs=
-    {"autocomplete": "current-password", 'class':'form-control'}))
+    {"autocomplete": "current-password", 'class':'form-control', 'placeholder':'Please Enter the Password'}))
 
 class MyPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label=_("Old Password"), 
     strip=False, widget=forms.PasswordInput(attrs=
     {'autocomplete': 'current-password', 'autofocus':True,  
-    'class':'form-control'}))
+    'class':'form-control', 'placeholder':'Please Enter the Old Password'}))
     new_password1 = forms.CharField(label=_("New Password"), 
     strip=False, widget=forms.PasswordInput(attrs=
-    {'autocomplete': 'new-password', 'class':'form-control'}),
+    {'autocomplete': 'new-password', 'class':'form-control', 'placeholder':'Please Enter the New Password'}),
     help_text=password_validation.
     password_validators_help_text_html())
     new_password2 = forms.CharField(label=_("Confirm New Password"), 
     strip=False, widget=forms.PasswordInput(attrs=
-    {'autocomplete': 'new-password', 'class':'form-control'}))
+    {'autocomplete': 'new-password', 'class':'form-control', 'placeholder':'Please Enter the New Password Again'}))
 
 class MyPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=_("Email"), max_length=254, widget=forms.EmailInput(attrs=
-    {'autocomplete': 'email', 'class':'form-control'}))
+    {'autocomplete': 'email', 'class':'form-control', 'placeholder':'Please Enter the Email'}))
 
 class MySetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(label=_("New Password"), 
     strip=False, widget=forms.PasswordInput(attrs=
-    {'autocomplete': 'new-password', 'class':'form-control'}),
+    {'autocomplete': 'new-password', 'class':'form-control', 'placeholder':'Please Enter the New Password'}),
     help_text=password_validation.password_validators_help_text_html())
     new_password2 = forms.CharField(label=_("Confirm New Password"), 
     strip=False, widget=forms.PasswordInput(attrs=
-    {'autocomplete': 'new-password', 'class':'form-control'}))
+    {'autocomplete': 'new-password', 'class':'form-control', 'placeholder':'Please Enter the New Password Again'}))
 
 class CustomerProfileForm(forms.ModelForm):
     class Meta:
@@ -67,11 +67,11 @@ class CustomerProfileForm(forms.ModelForm):
         'zipcode', 
         'state'
         ]
-        widgets = {'name':forms.TextInput(attrs={'class':'form-control'}), 
-                   'locality':forms.TextInput(attrs={'class':'form-control'}), 
-                   'city':forms.TextInput(attrs={'class':'form-control'}), 
-                   'zipcode':forms.NumberInput(attrs={'class':'form-control'}),
-                   'state':forms.Select(attrs={'class':'form-control'})
+        widgets = {'name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Name'}), 
+                   'locality':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Locality'}), 
+                   'city':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the City'}), 
+                   'zipcode':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Zipcode'}),
+                   'state':forms.Select(attrs={'class':'form-control', 'placeholder':'Please Enter the State'})
                 }
 
 class ProductForm(ModelForm):
@@ -89,7 +89,7 @@ class ProductForm(ModelForm):
         'purchase_price', 
         'selling_price', 
         'discounted_price',
-        'alertment_date',  
+        'purchase_tax_type',  
         'purchase_tax', 
         'selling_tax', 
         'description', 
@@ -102,28 +102,28 @@ class ProductForm(ModelForm):
         'product_image'
         ]
         widgets = {
-            'group' :forms.TextInput(attrs={'class':'form-control'}),
-            'item_type' :forms.TextInput(attrs={'class':'form-control'}), 
-            'manufacturer' :forms.TextInput(attrs={'class':'form-control'}), 
-            'supplier' :forms.Select(attrs={'class':'form-control'}), 
-            'title' :forms.TextInput(attrs={'class':'form-control'}), 
-            'barcode' :forms.NumberInput(attrs={'class':'form-control'}), 
-            'item_size' :forms.Select(attrs={'class':'form-control'}), 
-            'item_color' :forms.Select(attrs={'class':'form-control'}), 
-            'purchase_price' :forms.NumberInput(attrs={'class':'form-control'}), 
-            'actual_mrp' :forms.NumberInput(attrs={'class':'form-control'}), 
-            'selling_price' :forms.NumberInput(attrs={'class':'form-control'}),
-            'discounted_price' :forms.NumberInput(attrs={'class':'form-control'}),  
-            'purchase_tax_type' :forms.TextInput(attrs={'class':'form-control'}), 
-            'purchase_tax' :forms.NumberInput(attrs={'class':'form-control'}), 
-            'selling_tax' :forms.NumberInput(attrs={'class':'form-control'}), 
-            'description' :forms.TextInput(attrs={'class':'form-control'}), 
-            'brand' :forms.TextInput(attrs={'class':'form-control'}), 
-            'category' :forms.Select(attrs={'class':'form-control'}), 
-            'product_purchase_date' :forms.DateInput(attrs={'class':'form-control'}), 
-            'manufacture_date' :forms.DateInput(attrs={'class':'form-control'}), 
-            'expiry_date' :forms.DateInput(attrs={'class':'form-control'}), 
-            'alertment_date' :forms.DateInput(attrs={'class':'form-control'}), 
+            'group' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}),
+            'item_type' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Item Type'}), 
+            'manufacturer' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Manufacturer'}), 
+            'supplier' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+            'title' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Product Name'}), 
+            'barcode' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Barcode'}), 
+            'item_size' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+            'item_color' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+            'purchase_price' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Purchase Price'}), 
+            'actual_mrp' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Actual Mrp Rs.'}), 
+            'selling_price' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Selling Price'}),
+            'discounted_price' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Discounted Price'}),  
+            'purchase_tax_type' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Purchase Tax Type'}), 
+            'purchase_tax' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Purchase Tax'}), 
+            'selling_tax' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Selling Tax'}), 
+            'description' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Description'}), 
+            'brand' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter the Brand Name'}), 
+            'category' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+            'product_purchase_date' :forms.DateInput(attrs={'class':'form-control', 'placeholder':'YYYY-MM-DD'}), 
+            'manufacture_date' :forms.DateInput(attrs={'class':'form-control', 'placeholder':'YYYY-MM-DD'}), 
+            'expiry_date' :forms.DateInput(attrs={'class':'form-control', 'placeholder':'YYYY-MM-DD'}), 
+            'alertment_date' :forms.DateInput(attrs={'class':'form-control', 'placeholder':'YYYY-MM-DD'}), 
             'product_image' :forms.ClearableFileInput(attrs={'class':'form-control'}), 
         }
 
@@ -140,14 +140,14 @@ class CustomerForm(ModelForm):
         'state'
         ]
         Widgets = {
-            'mobile_no' :forms.TextInput(attrs={'class':'form-control'}), 
-            'user' :forms.TextInput(attrs={'class':'form-control'}), 
-            'name' :forms.TextInput(attrs={'class':'form-control'}), 
-            'email' :forms.EmailInput(attrs={'class':'form-control'}), 
-            'locality' :forms.TextInput(attrs={'class':'form-control'}), 
-            'city' :forms.TextInput(attrs={'class':'form-control'}), 
-            'zipcode' :forms.TextInput(attrs={'class':'form-control'}), 
-            'state':forms.Select(attrs={'class':'form-control'})
+            'mobile_no' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Mobile No'}), 
+            'user' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Username'}), 
+            'name' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Fullname'}), 
+            'email' :forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Email'}), 
+            'locality' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Locality'}), 
+            'city' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the City'}), 
+            'zipcode' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Zipcode'}), 
+            'state':forms.Select(attrs={'class':'form-control', 'placeholder':'Select'})
         }
 
 class ImageForm(ModelForm):
@@ -155,7 +155,7 @@ class ImageForm(ModelForm):
         model = Image
         fields =['product', 'pimage']
         widgets = {
-            'product' :forms.Select(attrs={'class':'form-control'}), 
+            'product' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
             'pimage' :forms.FileInput(attrs={'class':'form-control'})
         }
 
@@ -164,10 +164,10 @@ class CartForm(ModelForm):
         model = Cart
         fields = ['cart_id', 'customer', 'product', 'quantity']
         Widgets = {
-            'cart_id' :forms.NumberInput(attrs={'class':'form-control'}),
-            'customer' :forms.Select(attrs={'class':'form-control'}),
-            'product' :forms.Select(attrs={'class':'form-control'}),
-            'quantity' :forms.NumberInput(attrs={'class':'form-control'})
+            'cart_id' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Id No'}),
+            'customer' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}),
+            'product' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}),
+            'quantity' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Quantity'})
         }
 
 class OrderPlacedForm(ModelForm):
@@ -175,12 +175,12 @@ class OrderPlacedForm(ModelForm):
         model = OrderPlaced
         fields = ['user', 'customer', 'product', 'quantity', 'order_date', 'status']
         widgets = {
-            'user' :forms.Select(attrs={'class':'form-control'}), 
-            'customer' :forms.Select(attrs={'class':'form-control'}), 
-            'product' :forms.Select(attrs={'class':'form-control'}), 
-            'quantity' :forms.NumberInput(attrs={'class':'form-control'}), 
-            'order_date' :forms.DateInput(attrs={'class':'form-control'}), 
-            'status' :forms.Select(attrs={'class':'form-control'})
+            'user' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+            'customer' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+            'product' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+            'quantity' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Quantity'}), 
+            'order_date' :forms.DateInput(attrs={'class':'form-control', 'placeholder':'YYYY-MM-DD'}), 
+            'status' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'})
         }
 
 class CouponForm(ModelForm):
@@ -189,10 +189,10 @@ class CouponForm(ModelForm):
         fields = ['code', 'valid_from', 'valid_to', 'discount', 'active']                                   
         input_type = 'date'                                                                                                                                                                                                                                                                                                                                                                                                                        
         Widgets ={
-            'code' :forms.TextInput(attrs={'class':'form-control'}), 
-            'valid_from' :forms.DateInput(attrs={'class':'form-control', 'type':'date'}), 
-            'valid_to' :forms.DateInput(attrs={'class':'form-control'}), 
-            'discount' :forms.NumberInput(attrs={'class':'form-control'}), 
+            'code' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the CouponCode'}), 
+            'valid_from' :forms.DateInput(attrs={'class':'form-control', 'type':'date', 'placeholder':'YYYY-MM-DD'}), 
+            'valid_to' :forms.DateInput(attrs={'class':'form-control', 'placeholder':'YYYY-MM-DD'}), 
+            'discount' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Discount Value'}), 
             'active' :forms.CheckboxInput(attrs={'class':'form-control'})
         }
 
@@ -201,38 +201,92 @@ class TaxForm(ModelForm):
         model = Tax
         fields = ('tax_type', 'value')
         Widgets ={
-            'tax_type' :forms.TextInput(attrs={'class':'form-control'}), 
-            'value' :forms.NumberInput(attrs={'class':'form-control'})
+            'tax_type' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Tax Type'}), 
+            'value' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Tax Value in %'})
         }
 
 class ColorForm(ModelForm):
-    model = Color
-    fields = ('color_code', 'item_color')
-    widgets = {
-        'color_code' :forms.NumberInput(attrs={'class':'form-control'}), 
-        'item_color' :forms.TextInput(attrs={'class':'form-control'})
-    }
+    class Meta:    
+        model = Color
+        fields = ('color_code', 'item_color')
+        widgets = {
+            'color_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Color Code'}), 
+            'item_color' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Color'})
+        }
 
 class SizeForm(ModelForm):
-    model = Size
-    fields = ('size_code', 'size')
-    Widgets = {
-        'size_code' :forms.NumberInput(attrs={'class':'form-control'}), 
-        'size' :forms.TextInput(attrs={'class':'form-control'})
-    }
+    class Meta:
+        model = Size
+        fields = ('size_code', 'item_size')
+        Widgets = {
+            'size_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Size Code'}), 
+            'item_size' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Size'})
+        }
 class SupplierForm(ModelForm):
-    model = Supplier
-    fields = ['supplier_code', 'supplier', 'address', 'contact_no', 'supplier_email', 'gstin_no', 'state', 'pin']
-    widgets = {
-        'supplier_code' :forms.NumberInput(attrs={'class':'form-control'}), 
-        'supplier' :forms.TextInput(attrs={'class':'form-control'}), 
-        'address' :forms.TextInput(attrs={'class':'form-control'}), 
-        'contact_no' :forms.NumberInput(attrs={'class':'form-control'}), 
-        'supplier_email' :forms.EmailInput(attrs={'class':'form-control'}), 
-        'gstin_no' :forms.TextInput(attrs={'class':'form-control'}), 
-        'state' :forms.TextInput(attrs={'class':'form-control'}), 
-        'pin' :forms.NumberInput(attrs={'class':'form-control'})
-    }
+    class Meta:
+        model = Supplier
+        fields = ['supplier_code', 'supplier', 'address', 'contact_no', 'supplier_email', 'gstin_no', 'state', 'pin']
+        widgets = {
+            'supplier_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Supplier Code'}), 
+            'supplier' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Name'}), 
+            'address' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Sup. Address'}), 
+            'contact_no' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Contact No'}), 
+            'supplier_email' :forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Supplier Email'}), 
+            'gstin_no' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the GSTIN No'}), 
+            'state' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+            'pin' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Pincode'})
+        }
+
+class ItemgroupForm(ModelForm):
+    class Meta:
+        model = Itemgroup
+        fields = ['item_group_code', 'item_group_name', 'item_group_description']
+        widgets = {
+            'item_group_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Group Code'}), 
+            'item_group_name' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Group Name'}), 
+            'item_group_description' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Group Description'}), 
+        }
+
+class CategoryForm(ModelForm):
+    class Meta:
+        model = Category
+        fields = ['item_group_name', 'category_code', 'category_name']
+        widgets = {
+           'item_group_name' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+           'category_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Category Code'}), 
+           'category_name' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Category Name'}), 
+        }
+
+class PurchaseForm(ModelForm):
+    class Meta:
+        model = Purchase
+        fields = [
+            'trans_date', 
+            'pur_bill_no', 
+            'supplier_name', 
+            'total_qty', 
+            'gross_amt', 
+            'disc_amt', 
+            'gst_amt', 
+            'tcs', 
+            'o_charge', 
+            'o_disc', 
+            'grand_total'
+        ]
+        widgets = {
+            'trans_date' :forms.DateInput(attrs={'class':'form-control', 'placeholder':'YYYY-MM-DD'}),
+            'pur_bill_no' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Bill No'}), 
+            'supplier_name' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+            'total_qty' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Total Quantity'}), 
+            'gross_amt' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Gross Amount'}), 
+            'disc_amt' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Discounted Amount'}), 
+            'gst_amt' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The GST Amount'}), 
+            'tcs' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The TCS Amount'}), 
+            'o_charge' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Overall Charge'}), 
+            'o_disc' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Overall Discount'}), 
+            'grand_total' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Grand Total'})
+        }
+
 
 # class UserForm(UserCreationForm):
 #     class Meta:

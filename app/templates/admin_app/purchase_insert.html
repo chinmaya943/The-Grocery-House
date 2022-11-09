@@ -7,15 +7,15 @@
             <div class="tab">
                 <div class="btn" style="background-color: blue;">
                     <a class="btn" style="color: aliceblue; font-weight: 900;" href="#">
-                        + Add Size</a></div>
-                <center><u><h1>SIZE INSERTION FORM</h1></u></center>
+                        + Add Purchase</a></div>
+                <center><u><h1>PURCHASE INSERTION FORM</h1></u></center>
                 {% if submitted %}
-                Size Inserted Successfully!!!
+                Group Inserted Successfully!!!
                 {% else %}
                     <form action="" method="post">
                         {% csrf_token %}
 
-                        {{form.as_p}}
+                        {{forms.as_p}}
 
                         <input type="submit" value="Submit" class="btn btn-success">
                     {% endif %}

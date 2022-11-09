@@ -76,7 +76,13 @@ urlpatterns = [
     path('colordelete/<int:id>', views.color_delete, name="color-delete"), 
 
     path('sizes', views.all_size, name="list-size"),
-    path('sizedalate/<int:id>', views.size_delete, name="size-delete"),  
+    path('sizedalate/<int:id>', views.size_delete, name="size-delete"),
+
+    path('itemgroup', views.all_group, name="list-group"),  
+
+    path('category', views.all_category, name="list-category"), 
+
+    path('purchase', views.all_purchase, name="list-purchase"), 
 
     path('supplier', views.all_supplier, name="list-supplier"),
     path('supplierdelete/<int:id>/', views.supplier_delete, name="supplier-delete"), 
@@ -93,7 +99,10 @@ urlpatterns = [
     path('add-tax', views.tax_insert, name="tax-insert"),
     path('add-color', views.color_insert, name="color-insert"),
     path('add-supplier', views.supplier_insert, name="supplier-insert"),
-    path('add-size', views.sizevalue_insert, name="size-insert"), 
+    path('add-size', views.size_insert, name="size-insert"), 
+    path('add-group', views.group_insert, name="g-insert"),
+    path('add-category', views.category_insert, name='cat-insert'),  
+    path('add-purchase', views.purchase_insert, name='purchase-insert'), 
     
     
 

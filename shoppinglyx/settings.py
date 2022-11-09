@@ -95,13 +95,7 @@ DATABASES = {
         'USER': 'tgnvtrpufhpjdi',
         'PASSWORD': 'e0577da0070fc69645a8e2e685f2c34941c79c30b2e1749e8f9bba5d10fdab27',
         'HOST': 'ec2-35-170-21-76.compute-1.amazonaws.com',
-        'PORT': '5432', 
-        # 'NAME': 'thegroceryhouse', 
-        # 'USER': 'postgres', 
-        # 'PASSWORD': 'GNS@000999', 
-        # 'HOST': 'localhost',
-        # 'PORT': '5432',  
-
+        'PORT': '5432',  
     }
 }
 

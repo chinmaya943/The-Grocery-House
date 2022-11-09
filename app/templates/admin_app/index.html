@@ -96,33 +96,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Master</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="forms-elements.html">
-              <i class="bi bi-circle"></i><span>Form Elements</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-layouts.html">
-              <i class="bi bi-circle"></i><span>Form Layouts</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>Form Editors</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-validation.html">
-              <i class="bi bi-circle"></i><span>Form Validation</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Master Nav -->
+      
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
@@ -132,6 +106,18 @@
           <li>
             <a href="{% url 'list-products' %}">
               <i class="bi bi-circle"></i><span>Products</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+              <i class="bi bi-grid"></i>
+              <span>Purchase</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'list-category' %}">
+              <i class="bi bi-grid"></i>
+              <span>Category</span>
             </a>
           </li>
           <li>
@@ -184,7 +170,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'list-tax' %}">
+            <a class="nav-link collapsed" href="{% url 'list-group' %}">
               <i class="bi bi-grid"></i>
               <span>Group</span>
             </a>
@@ -197,24 +183,193 @@
           </li>
         </ul>
       </li><!-- End Components Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>PRODUCT</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
+            <a href="{% url 'list-products' %}">
+              <i class="bi bi-circle"></i><span>Products</span>
             </a>
           </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+              <i class="bi bi-grid"></i>
+              <span>Purchase</span>
             </a>
           </li>
-        </ul>
-      </li><!-- End Tables Nav -->
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>CATEGORY</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'list-products' %}">
+              <i class="bi bi-circle"></i><span>Products</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+              <i class="bi bi-grid"></i>
+              <span>Purchase</span>
+            </a>
+          </li>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-menu-button-wide"></i><span>group</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="{% url 'list-products' %}">
+                  <i class="bi bi-circle"></i><span>Products</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+                  <i class="bi bi-grid"></i>
+                  <span>Purchase</span>
+                </a>
+              </li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>COLOR</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+              <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                  <a href="{% url 'list-products' %}">
+                    <i class="bi bi-circle"></i><span>Products</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+                    <i class="bi bi-grid"></i>
+                    <span>Purchase</span>
+                  </a>
+                </li>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                  <i class="bi bi-menu-button-wide"></i><span>SIZE</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                  <li>
+                    <a href="{% url 'list-products' %}">
+                      <i class="bi bi-circle"></i><span>Products</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+                      <i class="bi bi-grid"></i>
+                      <span>Purchase</span>
+                    </a>
+                  </li>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>TAX</span><i class="bi bi-chevron-down ms-auto"></i>
+                  </a>
+                  <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                      <a href="{% url 'list-products' %}">
+                        <i class="bi bi-circle"></i><span>Products</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+                        <i class="bi bi-grid"></i>
+                        <span>Purchase</span>
+                      </a>
+                    </li>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                      <i class="bi bi-menu-button-wide"></i><span>COUPON</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                      <li>
+                        <a href="{% url 'list-products' %}">
+                          <i class="bi bi-circle"></i><span>Products</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+                          <i class="bi bi-grid"></i>
+                          <span>Purchase</span>
+                        </a>
+                      </li>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>USER</span><i class="bi bi-chevron-down ms-auto"></i>
+                      </a>
+                      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                          <a href="{% url 'list-products' %}">
+                            <i class="bi bi-circle"></i><span>Products</span>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+                            <i class="bi bi-grid"></i>
+                            <span>Purchase</span>
+                          </a>
+                        </li>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                          <i class="bi bi-menu-button-wide"></i><span>CUSTOMER</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                          <li>
+                            <a href="{% url 'list-products' %}">
+                              <i class="bi bi-circle"></i><span>Products</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+                              <i class="bi bi-grid"></i>
+                              <span>Purchase</span>
+                            </a>
+                          </li>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span>SUPPLIER</span><i class="bi bi-chevron-down ms-auto"></i>
+                          </a>
+                          <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                              <a href="{% url 'list-products' %}">
+                                <i class="bi bi-circle"></i><span>Products</span>
+                              </a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+                                <i class="bi bi-grid"></i>
+                                <span>Purchase</span>
+                              </a>
+                            </li>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                              <i class="bi bi-menu-button-wide"></i><span>PURCHASE</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </a>
+                            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                              <li>
+                                <a href="{% url 'list-products' %}">
+                                  <i class="bi bi-circle"></i><span>Products</span>
+                                </a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link collapsed" href="{% url 'list-purchase' %}">
+                                  <i class="bi bi-grid"></i>
+                                  <span>Purchase</span>
+                                </a>
+                              </li>
+                            </li> -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{% url 'list-bills' %}">
